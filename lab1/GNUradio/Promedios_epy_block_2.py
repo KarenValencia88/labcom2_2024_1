@@ -39,4 +39,8 @@ class blk (gr. sync_block ):
 		acumulado2 = self . acum_anterior2 + np. cumsum (x3)
 		self . acum_anterior2 = acumulado2 [N -1]
 		y4 [:] = np. sqrt ( acumulado2 / self . Ntotales )
-		return len (x)
+		return len (y0) 
+		return len(y1) 
+		return len(y2)
+		return len(y3)
+		return len(y4)

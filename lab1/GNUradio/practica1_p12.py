@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: GPL-3.0
 #
 # GNU Radio Python Flow Graph
-# Title: Not titled yet
+# Title: practica1_p12
 # GNU Radio version: 3.9.8.0
 
 from distutils.version import StrictVersion
@@ -32,19 +32,19 @@ import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-import Promedios_epy_block_0 as epy_block_0  # embedded python block
-import Promedios_epy_block_1 as epy_block_1  # embedded python block
+import practica1_p12_epy_block_0 as epy_block_0  # embedded python block
+import practica1_p12_epy_block_1 as epy_block_1  # embedded python block
 
 
 
 from gnuradio import qtgui
 
-class Promedios(gr.top_block, Qt.QWidget):
+class practica1_p12(gr.top_block, Qt.QWidget):
 
     def __init__(self):
-        gr.top_block.__init__(self, "Not titled yet", catch_exceptions=True)
+        gr.top_block.__init__(self, "practica1_p12", catch_exceptions=True)
         Qt.QWidget.__init__(self)
-        self.setWindowTitle("Not titled yet")
+        self.setWindowTitle("practica1_p12")
         qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
@@ -62,7 +62,7 @@ class Promedios(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "Promedios")
+        self.settings = Qt.QSettings("GNU Radio", "practica1_p12")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -161,7 +161,7 @@ class Promedios(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "Promedios")
+        self.settings = Qt.QSettings("GNU Radio", "practica1_p12")
         self.settings.setValue("geometry", self.saveGeometry())
         self.stop()
         self.wait()
@@ -177,7 +177,7 @@ class Promedios(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=Promedios, options=None):
+def main(top_block_cls=practica1_p12, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
