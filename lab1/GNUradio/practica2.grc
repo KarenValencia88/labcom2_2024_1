@@ -45,56 +45,55 @@ blocks:
     coordinate: [256, 4.0]
     rotation: 0
     state: enabled
-- name: blocks_vector_source_x_0
-  id: blocks_vector_source_x
+- name: analog_sig_source_x_0
+  id: analog_sig_source_x
   parameters:
     affinity: ''
     alias: ''
+    amp: '1'
     comment: ''
+    freq: '1000'
     maxoutbuf: '0'
     minoutbuf: '0'
-    repeat: 'True'
-    tags: '[]'
+    offset: '0'
+    phase: '0'
+    samp_rate: samp_rate
+    showports: 'False'
     type: float
-    vector: (1,2,-1)
-    vlen: '1'
+    waveform: analog.GR_COS_WAVE
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [248, 364.0]
+    coordinate: [304, 336.0]
     rotation: 0
     state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
-    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
-      \ GRC will instantiate the first class it finds\nto get ports and parameters\
-      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
-      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
-      from gnuradio import gr\n\n\nclass blk(gr.sync_block):\n    def __init__(self):\n\
-      \        gr.sync_block.__init__(\n        self, \n        name = 'PROMEDIOS_TIEMPO',\n\
-      \        in_sig =[np.float32],\n        out_sig=[np.float32, np.float32, np.float32,\
-      \ np.float32, np.float32]\n        )\n        self.acum_anterior =0\n      \
-      \  self.Ntotales =0\n        self.acum_anterior1=0\n        self.acum_anterior2=0\n\
-      \n        \n    def work(self, input_items, output_items): \n        x=input_items[0]\
-      \        #se\xF1al de entrada \n        y0=output_items[0]      #promedio \n\
-      \        y1=output_items[1]      #media cuadratica \n        y2=output_items[2]\
-      \      #RMS\n        y3=output_items[3]      #potencia promedio \n        y4=output_items[4]\
-      \      #desviacion estandar \n        \n        \n        #CALCULANDO EL PROMEDIO\
-      \ O MEDIA \n        N=len(x)\n        self.Ntotales=self.Ntotales + N #guarda\
-      \ la longitud del vectro de entrada \n        acumulador= self.acum_anterior\
-      \ + np.cumsum(x) #calcula la suma de los elementos del vector \n        self.acum_anterior=acumulador[N-1]\
-      \ #PARA QUE HACE ESA COPIA ?\n        y0[:]=(acumulador/self.Ntotales) #NO SERIA\
-      \ acum_anterior ?\n        \n        #CALCULANDO LA MEDIA CUADRATICA\n     \
-      \   xp=np.multiply(x,x)\n        acumulador1=self.acum_anterior1 + np.cumsum(xp)\n\
-      \        self.acum_anterior1=acumulador1[N-1]\n        y1[:]=acumulador1/self.Ntotales\n\
-      \        \n        #CALCULANDO EL VALOR RMS \n        y2[:]=np.sqrt(y1)\n  \
-      \      \n        #CALCULANDO LA POTENCIA PROMEDIO \n        y3[:]=np.multiply(y2,y2)\n\
-      \        \n        #CALCULANDO LA DESVIACION ESTANDAR \n        xd=np.multiply(x-y0,x-y0)\n\
-      \        acumulador2=self.acum_anterior2 + np.cumsum(xd)\n        self.acum_anterior2=acumulador2[N-1]\n\
-      \        y4[:]=np.sqrt(acumulador2/self.Ntotales)\n        \n        return\
-      \ len(y0)\n"
+    _source_code: "\nimport numpy as np\nfrom gnuradio import gr\n\n\nclass blk(gr.sync_block):\n\
+      \    def __init__(self):\n        gr.sync_block.__init__(\n        self, \n\
+      \        name = 'PROMEDIOS_TIEMPO',\n        in_sig =[np.float32],\n       \
+      \ out_sig=[np.float32, np.float32, np.float32, np.float32, np.float32]\n   \
+      \     )\n        self.acum_anterior =0\n        self.Ntotales =0\n        self.acum_anterior1=0\n\
+      \        self.acum_anterior2=0\n\n        \n    def work(self, input_items,\
+      \ output_items): \n        x=input_items[0]        #se\xF1al de entrada \n \
+      \       y0=output_items[0]      #promedio \n        y1=output_items[1]     \
+      \ #media cuadratica \n        y2=output_items[2]      #RMS\n        y3=output_items[3]\
+      \      #potencia promedio \n        y4=output_items[4]      #desviacion estandar\
+      \ \n        \n        \n        #CALCULANDO EL PROMEDIO O MEDIA \n        N=len(x)\n\
+      \        self.Ntotales=self.Ntotales + N #guarda la longitud del vectro de entrada\
+      \ \n        acumulador= self.acum_anterior + np.cumsum(x) #calcula la suma de\
+      \ los elementos del vector \n        self.acum_anterior=acumulador[N-1] #PARA\
+      \ QUE HACE ESA COPIA ?\n        y0[:]=(acumulador/self.Ntotales) #NO SERIA acum_anterior\
+      \ ?\n        \n        #CALCULANDO LA MEDIA CUADRATICA\n        xp=np.multiply(x,x)\n\
+      \        acumulador1=self.acum_anterior1 + np.cumsum(xp)\n        self.acum_anterior1=acumulador1[N-1]\n\
+      \        y1[:]=acumulador1/self.Ntotales\n        \n        #CALCULANDO EL VALOR\
+      \ RMS \n        y2[:]=np.sqrt(y1)\n        \n        #CALCULANDO LA POTENCIA\
+      \ PROMEDIO \n        y3[:]=np.multiply(y2,y2)\n        \n        #CALCULANDO\
+      \ LA DESVIACION ESTANDAR \n        xd=np.multiply(x-y0,x-y0)\n        acumulador2=self.acum_anterior2\
+      \ + np.cumsum(xd)\n        self.acum_anterior2=acumulador2[N-1]\n        y4[:]=np.sqrt(acumulador2/self.Ntotales)\n\
+      \        \n        return len(y0)\n"
     affinity: ''
     alias: ''
     comment: ''
@@ -427,7 +426,7 @@ blocks:
     state: enabled
 
 connections:
-- [blocks_vector_source_x_0, '0', epy_block_0, '0']
+- [analog_sig_source_x_0, '0', epy_block_0, '0']
 - [epy_block_0, '0', qtgui_number_sink_0, '0']
 - [epy_block_0, '1', qtgui_number_sink_0_2, '0']
 - [epy_block_0, '2', qtgui_number_sink_0_0, '0']
