@@ -180,9 +180,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 156.0]
+    coordinate: [1240, 348.0]
     rotation: 0
-    state: true
+    state: disabled
 - name: blocks_add_xx_0
   id: blocks_add_xx
   parameters:
@@ -215,9 +215,26 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 224.0]
+    coordinate: [1448, 416.0]
     rotation: 0
-    state: true
+    state: disabled
+- name: blocks_char_to_float_0_0
+  id: blocks_char_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [336, 224.0]
+    rotation: 0
+    state: enabled
 - name: blocks_complex_to_mag_squared_0
   id: blocks_complex_to_mag_squared
   parameters:
@@ -234,6 +251,28 @@ blocks:
     coordinate: [712, 616.0]
     rotation: 0
     state: true
+- name: blocks_file_source_0
+  id: blocks_file_source
+  parameters:
+    affinity: ''
+    alias: ''
+    begin_tag: pmt.PMT_NIL
+    comment: ''
+    file: C:\Users\duvan\OneDrive\Escritorio\semestre2024_1\Comunicaciones_II\sonido.wav
+    length: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    repeat: 'True'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [0, 224.0]
+    rotation: 0
+    state: enabled
 - name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
@@ -324,6 +363,22 @@ blocks:
     coordinate: [976, 152.0]
     rotation: 0
     state: true
+- name: blocks_unpack_k_bits_bb_0
+  id: blocks_unpack_k_bits_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '8'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 304.0]
+    rotation: 0
+    state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
@@ -679,9 +734,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [384.0, 304]
+    coordinate: [496.0, 336]
     rotation: 270
-    state: true
+    state: disabled
 - name: virtual_sink_0_1_0
   id: virtual_sink
   parameters:
@@ -713,7 +768,7 @@ blocks:
   parameters:
     alias: ''
     comment: ''
-    stream_id: p5
+    stream_id: p4
   states:
     bus_sink: false
     bus_source: false
@@ -726,7 +781,7 @@ blocks:
   parameters:
     alias: ''
     comment: ''
-    stream_id: p4
+    stream_id: p5
   states:
     bus_sink: false
     bus_source: false
@@ -738,15 +793,15 @@ blocks:
 connections:
 - [analog_const_source_x_0_0, '0', blocks_add_xx_0, '0']
 - [analog_noise_source_x_0, '0', virtual_sink_0_1_0_0, '0']
-- [analog_random_source_x_0, '0', blocks_char_to_float_0, '0']
 - [blocks_add_xx_0, '0', blocks_multiply_const_vxx_0, '0']
-- [blocks_char_to_float_0, '0', blocks_add_xx_0, '1']
-- [blocks_char_to_float_0, '0', virtual_sink_0_1, '0']
+- [blocks_char_to_float_0_0, '0', blocks_add_xx_0, '1']
 - [blocks_complex_to_mag_squared_0, '0', epy_block_0, '0']
+- [blocks_file_source_0, '0', blocks_unpack_k_bits_bb_0, '0']
 - [blocks_multiply_const_vxx_0, '0', interp_fir_filter_xxx_0, '0']
 - [blocks_multiply_const_vxx_1, '0', qtgui_vector_sink_f_0, '0']
 - [blocks_stream_to_vector_0, '0', fft_vxx_0, '0']
 - [blocks_throttle_0, '0', virtual_sink_0_1_0, '0']
+- [blocks_unpack_k_bits_bb_0, '0', blocks_char_to_float_0_0, '0']
 - [epy_block_0, '0', blocks_multiply_const_vxx_1, '0']
 - [fft_vxx_0, '0', blocks_complex_to_mag_squared_0, '0']
 - [interp_fir_filter_xxx_0, '0', blocks_throttle_0, '0']
